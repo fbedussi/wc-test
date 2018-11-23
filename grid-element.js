@@ -12,7 +12,6 @@ class GridElement extends HTMLElement {
         super();
 
         this.state = getNewState();
-        this.parser = new DOMParser();
     }
 
     connectedCallback() {
