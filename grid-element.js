@@ -12,6 +12,7 @@ class GridElement extends HTMLElement {
         super();
 
         this.state = getNewState();
+        this.parser = new DOMParser();
     }
 
     connectedCallback() {
@@ -26,14 +27,16 @@ class GridElement extends HTMLElement {
     }
 
     render() {
-        this.innerHTML = /*html*/`
-            <span style="
-            display: inline-block; 
-            height: 30px; 
-            width: ${this.state.width}px; 
-            background-color: ${this.state.color};"
-            ></span>
-        `;
+        const style = `display: inline-block; 
+        height: 30px; 
+        width: ${this.state.width}px; 
+        background-color: ${this.state.color};`;
+        const newDom = `<span style="${style}"></span>`;
+        if (this.children.length) {
+            morphdom(this.children[0], newDom);
+        } else {
+            this.innerHTML = newDom;
+        }
     }
 }
 
